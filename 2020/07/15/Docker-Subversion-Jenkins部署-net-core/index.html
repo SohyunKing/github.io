@@ -5,17 +5,17 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://yoursite.com">
+  <link rel="dns-prefetch" href="https://sohyunking.github.io">
   <title>Docker+Subversion+Jenkins部署.net core | 学习笔记</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Jenkins是java开发的一种持续集成工具，主要用于持续、自动的构建&#x2F;测试软件等相关项目。之前公司项目一直用IIS发布和管理后台 .net core应用，之后尝试使用nginx转发远程发布就变成了一种很麻烦的事情，因而尝试使用Jenkins。服务器使用的windows server 2019，就先在个人笔记本上先踩一遍坑。本机系统为windows 10旗舰版 1903。 ##1.docker的">
+  <meta name="description" content="Jenkins是java开发的一种持续集成工具，主要用于持续、自动的构建&#x2F;测试软件等相关项目。之前公司项目一直用IIS发布和管理后台 .net core应用，之后尝试使用nginx转发远程发布就变成了一种很麻烦的事情，因而尝试使用Jenkins。服务器使用的windows server 2019，就先在个人笔记本上先踩一遍坑。本机系统为windows 10旗舰版 1903。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker+Subversion+Jenkins部署.net core">
-<meta property="og:url" content="http://yoursite.com/2020/07/15/Docker-Subversion-Jenkins%E9%83%A8%E7%BD%B2-net-core/index.html">
+<meta property="og:url" content="https://sohyunking.github.io/2020/07/15/Docker-Subversion-Jenkins%E9%83%A8%E7%BD%B2-net-core/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="Jenkins是java开发的一种持续集成工具，主要用于持续、自动的构建&#x2F;测试软件等相关项目。之前公司项目一直用IIS发布和管理后台 .net core应用，之后尝试使用nginx转发远程发布就变成了一种很麻烦的事情，因而尝试使用Jenkins。服务器使用的windows server 2019，就先在个人笔记本上先踩一遍坑。本机系统为windows 10旗舰版 1903。 ##1.docker的">
+<meta property="og:description" content="Jenkins是java开发的一种持续集成工具，主要用于持续、自动的构建&#x2F;测试软件等相关项目。之前公司项目一直用IIS发布和管理后台 .net core应用，之后尝试使用nginx转发远程发布就变成了一种很麻烦的事情，因而尝试使用Jenkins。服务器使用的windows server 2019，就先在个人笔记本上先踩一遍坑。本机系统为windows 10旗舰版 1903。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.runoob.com/wp-content/uploads/2017/12/1513668234-6433-20171206211858191-1177002365.png">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/17959842-df9e970c65920bf1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/799/format/webp">
@@ -32,9 +32,11 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/SohyunKing/Figurebed/master/img/20200715104501.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/SohyunKing/Figurebed/master/img/20200715104703.png">
 <meta property="article:published_time" content="2020-07-15T09:40:40.000Z">
-<meta property="article:modified_time" content="2020-07-15T14:13:45.796Z">
+<meta property="article:modified_time" content="2020-07-16T03:15:32.876Z">
 <meta property="article:author" content="sohyunking">
-<meta property="article:tag" content="Docker Jenkkins .net core">
+<meta property="article:tag" content="Jenkkins">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content=".net core">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://www.runoob.com/wp-content/uploads/2017/12/1513668234-6433-20171206211858191-1177002365.png">
   
@@ -257,8 +259,11 @@
   <div class="article-entry" itemprop="articleBody">
     
     <p>Jenkins是java开发的一种持续集成工具，主要用于持续、自动的构建/测试软件等相关项目。之前公司项目一直用IIS发布和管理后台 .net core应用，之后尝试使用nginx转发远程发布就变成了一种很麻烦的事情，因而尝试使用Jenkins。服务器使用的windows server 2019，就先在个人笔记本上先踩一遍坑。本机系统为windows 10旗舰版 1903。</p>
-<p>##1.docker的安装</p>
-<h3 id="开启Hyper-V"><a href="#开启Hyper-V" class="headerlink" title="开启Hyper-V"></a>开启Hyper-V</h3><p>windows直接搜索【启用或关闭Windows功能】（或在控制面版-程序和功能-启用或关闭Windows功能），选中Hyper-V选项，确定。<br><img src="http://www.runoob.com/wp-content/uploads/2017/12/1513668234-6433-20171206211858191-1177002365.png" alt="开启Hyper-V"></p>
+<a id="more"></a>
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<h2 id="1-docker的安装"><a href="#1-docker的安装" class="headerlink" title="1.docker的安装"></a>1.docker的安装</h2><h3 id="开启Hyper-V"><a href="#开启Hyper-V" class="headerlink" title="开启Hyper-V"></a>开启Hyper-V</h3><p>windows直接搜索【启用或关闭Windows功能】（或在控制面版-程序和功能-启用或关闭Windows功能），选中Hyper-V选项，确定。<br><img src="http://www.runoob.com/wp-content/uploads/2017/12/1513668234-6433-20171206211858191-1177002365.png" alt="开启Hyper-V"></p>
 <h3 id="下载安装Docker-Desktop-for-Windows"><a href="#下载安装Docker-Desktop-for-Windows" class="headerlink" title="下载安装Docker Desktop for Windows"></a>下载安装Docker Desktop for Windows</h3><p>下载地址：<a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows" target="_blank" rel="noopener">https://hub.docker.com/editions/community/docker-ce-desktop-windows</a><br>需要注册账号，安装过程很简单，直接下一步即可。</p>
 <h3 id="国内镜像加速"><a href="#国内镜像加速" class="headerlink" title="国内镜像加速"></a>国内镜像加速</h3><p>参考：<a href="https://www.runoob.com/docker/docker-mirror-acceleration.html" target="_blank" rel="noopener">https://www.runoob.com/docker/docker-mirror-acceleration.html</a></p>
 <h3 id="启动docker"><a href="#启动docker" class="headerlink" title="启动docker"></a>启动docker</h3><p>启动docker服务，在cmd或者命令行界面输入<code>docker version</code>用于查看当前版本信息，证明安装成功。<code>docker --help</code>或<code>docker -h</code>可以查看帮助信息，使用docker命令<code>--help</code>可以查看当前命令的说明，如<code>docker image --help</code>。</p>
@@ -293,7 +298,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://yoursite.com/2020/07/15/Docker-Subversion-Jenkins部署-net-core/" title="Docker+Subversion+Jenkins部署.net core" target="_blank">http://yoursite.com/2020/07/15/Docker-Subversion-Jenkins部署-net-core/</a>
+          <a href="https://sohyunking.github.io/2020/07/15/Docker-Subversion-Jenkins部署-net-core/" title="Docker+Subversion+Jenkins部署.net core" target="_blank">https://sohyunking.github.io/2020/07/15/Docker-Subversion-Jenkins部署-net-core/</a>
         </li>
         
         <li>
@@ -315,13 +320,32 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Docker Jenkkins .net core</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Jenkkins</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">.net core</a>
         		</li>
       		
 		</ul>
 	</div>
 
     
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jenkkins//" class="article-tag-list-link color4">Jenkkins</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
     
 
@@ -371,7 +395,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/07/15/Docker-Subversion-Jenkins%E9%83%A8%E7%BD%B2-net-core/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://sohyunking.github.io/2020/07/15/Docker-Subversion-Jenkins%E9%83%A8%E7%BD%B2-net-core/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -385,6 +409,15 @@
 
 
 <nav id="article-nav">
+  
+    <a href="/2020/07/16/Docker-Subversion-Jenkins%E5%9C%A8windows%20server%E9%83%A8%E7%BD%B2-net-core/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Docker+Subversion+Jenkins在windows server部署.net core
+        
+      </div>
+    </a>
   
   
     <a href="/2020/07/15/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
@@ -454,7 +487,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2020 <a href="http://yoursite.com/" target="_blank">sohyunking</a>
+    		&copy; 2018-2020 <a href="https://sohyunking.github.io/" target="_blank">sohyunking</a>
     	</div>
       	<div class="footer-right">
 			
@@ -573,7 +606,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Docker Jenkkins .net core</a>
+                <a href="javascript:void(0)" class="js-tag color4">Jenkkins</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">.net core</a>
               </li>
             
             <div class="clearfix"></div>
